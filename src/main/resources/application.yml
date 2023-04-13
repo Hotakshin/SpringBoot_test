@@ -1,0 +1,7 @@
+spring:
+    datasource:
+        url: jdbc:mysql://localhost/testdb
+        username: dev
+        password: dev
+        # driver-class-name: com.mysql.jdbc.driver
+        # mysql version 8 이상은 드라이버를 따로 작성하지않아도된다.
