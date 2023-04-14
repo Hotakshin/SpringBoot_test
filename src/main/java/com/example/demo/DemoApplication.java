@@ -1,44 +1,41 @@
 package com.example.demo;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-
-import javax.sql.DataSource;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-@SpringBootApplication
-public class DemoApplication implements CommandLineRunner{
+import com.example.demo.domain.Memo;
+import com.example.demo.repository.MemoDao;
 
-	//main메소드는 Spring이 관리하지 않는다.
+//@Componenent 가 붙어있는 객체는 스프링 컨테이너가 관리하는 객체 (BEAN)
+
+@SpringBootApplication
+public class DemoApplication implements CommandLineRunner {
 	public static void main(String[] args) {
 		SpringApplication.run(DemoApplication.class, args);
-
 	}
-	// DataSource Bean(Spring이 관리하는 객체)
-	@Autowired //자동으로 주입
-	DataSource dataSource;
+
+	// DataSource 에 대한 BEAN을 주입한다(메모리에 올라간다)
+	@Autowired
+	MemoDao memoDao;
 
 	@Override
 	public void run(String... args) throws Exception {
-		System.out.println("스프링 부트가 관리하는 빈을 사용할 수 있다.");
+		// 스프링부트는 커맨드라인러너라는 구현하고있으면 이 run을 시작점으로 변경한다.
+		// 인서트
+		// Memo memo = new Memo();
+		// memo.setid(5);
+		// memo.setContent("메모 네번째ㅐ");
+		// memoDao.addMemo(memo);
 
-		Connection conn = dataSource.getConnection();
+		// 딜리트
+		// boolean flag = memoDao.deleteMemo(3);
+		// System.out.println("flag : " + flag);
 
-		PreparedStatement ps = conn.prepareStatement("select id, content from memo");
-		ResultSet rs = ps.executeQuery();
-		while(rs.next()){
-			int roleId = rs.getInt("id");
-			String name = rs.getString("content");
-			System.out.println(roleId + ", " + name);
-		}
-		rs.close();
-		ps.close();
-		conn.close();
+		// 조회
+		Memo memo = memoDao.getMemo(1);
+		System.out.println(memo.getid() + ", " + memo.getContent());
 	}
 
 }
