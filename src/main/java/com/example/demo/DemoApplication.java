@@ -1,5 +1,7 @@
 package com.example.demo;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -23,10 +25,11 @@ public class DemoApplication implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 		// 스프링부트는 커맨드라인러너라는 구현하고있으면 이 run을 시작점으로 변경한다.
+
 		// 인서트
 		// Memo memo = new Memo();
-		// memo.setid(5);
-		// memo.setContent("메모 네번째ㅐ");
+		// memo.setid(6);
+		// memo.setContent("메모 다섯번째ㅐ");
 		// memoDao.addMemo(memo);
 
 		// 딜리트
@@ -34,8 +37,14 @@ public class DemoApplication implements CommandLineRunner {
 		// System.out.println("flag : " + flag);
 
 		// 조회
-		Memo memo = memoDao.getMemo(1);
-		System.out.println(memo.getid() + ", " + memo.getContent());
+		// Memo memo = memoDao.getMemo3(1);
+		// System.out.println(memo.getid() + ", " + memo.getContent());
+
+		// // 여러건 조회
+		List<Memo> memoList = memoDao.getMemoList2();
+		for (Memo memo : memoList) {
+			System.out.println(memo.getid() + ", " + memo.getContent());
+		}
 	}
 
 }
